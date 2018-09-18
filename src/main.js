@@ -4,8 +4,14 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import { AlertPlugin, ToastPlugin } from 'vux'
-import VeeValidate from 'vee-validate'
+import VeeValidate from 'vee-validate';
+
+
 Vue.config.productionTip = false
+Vue.use(AlertPlugin)
+Vue.use(ToastPlugin)
+Vue.use(VeeValidate);
+
 
 
 /* eslint-disable no-new */
@@ -17,6 +23,4 @@ new Vue({
 })
 
 
-Vue.use(AlertPlugin)
-Vue.use(ToastPlugin)
-Vue.use(VeeValidate);
+

@@ -11,20 +11,20 @@
 	    </div>
 
 	    <!-- Login Form -->
-	    <form>
+	    <form @submit.prevent="validateBeforeSubmit">
 	    	<group>
-		    	<x-input type="text" placeholder="username" 
-		    	v-model="username"
-		    	required 
-		    	class="fadeIn second" ></x-input>
+	    		<input name="name" v-model="username" v-validate="'required|alpha'" 
+	    		:class="{'input': true, 'is-danger': errors.has('name')}" class="fadeIn second" type="text" placeholder="Name">
+                <i v-show="errors.has('name')" class="fa fa-warning"></i>
+                <span v-show="errors.has('name')" class="help is-danger">{{ errors.first('name') }}</span>
 		  	</group>
 		  	<group>
-		  		<x-input type="password" placeholder="password" 
+		  		<input type="password" placeholder="password" 
 		  		v-model="password"
-		  		required
-		  		class="fadeIn third"></x-input>
+		  
+		  		class="fadeIn third"></input>
 	  		</group>
-	      <input type="submit" class="fadeIn fourth" v-on:click="submitForm">
+	      <input type="submit" class="fadeIn fourth">
 	    </form>
 
 	   <!-- Remind Passowrd -->
@@ -60,14 +60,26 @@ export default {
   	}
   },
   methods:{
-  	submitForm(){
+  	validateBeforeSubmit(){
+  		this.$validator.validateAll().then((result) => {
+        if (result) {
+          // eslint-disable-next-line
+          alert('Form Submitted!');
+          return;
+        }
+
+        alert('Correct them errors!');
+      });
   		console.log(this.username)
   	}
   },
   mounted(){
-  	this.$vux.toast.show({
-	 text: 'Loading'
-	})
+  	this.$nextTick(function(){
+  		this.$vux.toast.show({
+		 text: 'Loading'
+		})
+  	})
+  	
   }
 }
 </script>

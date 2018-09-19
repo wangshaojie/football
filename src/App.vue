@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+  	<x-header>This is the page title.</x-header>
     <router-view/>
   </div>
 </template>
@@ -10,9 +11,13 @@
 </style>
 
 <script>
-export default {
-  name: 'App'
-}
+	import {XHeader} from  'vux';
+	export default {
+	  name: 'App',
+	  components:{
+	  	XHeader
+	  }
+	}
 </script>
 
 <style>

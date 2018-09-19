@@ -63,20 +63,23 @@ export default {
   	validateBeforeSubmit(){
   		this.$validator.validateAll().then((result) => {
         if (result) {
+          console.log(result)
+          localStorage.token = new Date().getDate();
+          this.$router.push({
+            name : "/"
+          })
           // eslint-disable-next-line
           alert('Form Submitted!');
           return;
         }
-        alert('Correct them errors!');
       });
-  		console.log(this.username)
   	}
   },
   mounted(){
   	this.$nextTick(function(){
   		this.$vux.toast.show({
-		 text: 'Loading'
-		})
+		    text: 'Loading'
+		  })
   	})
   	
   }

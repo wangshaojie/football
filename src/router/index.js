@@ -36,29 +36,13 @@ router.beforeEach((to, from, next) => {
   if(to.matched.some(res => res.meta.requireAuth)) {
     //window.localStorage.setItem("loginUserBaseInfo", "wangsj00")
     //localStorage.removeItem("loginUserBaseInfo");
-    if(localStorage.getItem("loginUserBaseInfo")){
-      //这里需要做token过期处理
-      let lifeTime =
-        JSON.parse(window.localStorage.getItem("loginUserBaseInfo")).lifeTime *
-        1000;
-        let nowTime = (new Date()).getTime(); // 当前时间的时间戳
-        if (nowTime < lifeTime) {
-          next();
-        }else{
-          this.$nextTick(function(){
-            this.$vux.toast.show({
-              text: err
-            })
-          })
-          next({
-            path: "/login"
-          })
-        }
-    }else{
+    if(!localStorage.token){
       next({
         path: '/login',
         query : {redirect : to.fullpath} //将跳转的路由path作为参数，登录成功后跳转到该路由
       })
+    }else{
+      next()
     }
   }else{
     next()

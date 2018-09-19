@@ -2,15 +2,19 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
+import "bulma/css/bulma.min.css";  //验证de样式
 import router from './router'
 import { AlertPlugin, ToastPlugin } from 'vux'
-import VeeValidate from 'vee-validate';
+import '../static/js/validate.js'
+import axiosPlugin from "./server";  //axios权限
 
 
 Vue.config.productionTip = false
 Vue.use(AlertPlugin)
 Vue.use(ToastPlugin)
-Vue.use(VeeValidate);
+Vue.use(axiosPlugin);
+
+
 
 
 

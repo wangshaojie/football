@@ -7,7 +7,7 @@
 
 		    <!-- Icon -->
 	    <div class="fadeIn first">
-	      <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon" />
+	      <img src="../../assets/icon.svg" id="icon" alt="User Icon" />
 	    </div>
 
 	    <!-- Login Form -->
@@ -19,12 +19,13 @@
                 <span v-show="errors.has('name')" class="help is-danger">{{ errors.first('name') }}</span>
 		  	</group>
 		  	<group>
-		  		<input type="password" placeholder="password" 
-		  		v-model="password"
-		  
-		  		class="fadeIn third"></input>
+                    <input name="password" v-validate="'required|min:6'" :class="{'input': true, 'is-danger': errors.has('password') }" class="fadeIn third"
+                     type="password" placeholder="Password">
+                    <i v-show="errors.has('password')" class="fa fa-warning"></i>
+                    <span v-show="errors.has('password')" class="help is-danger">{{ errors.first('password') }}
+                    </span>
 	  		</group>
-	      <input type="submit" class="fadeIn fourth">
+	      <input type="submit" class="fadeIn fourth" value="登录">
 	    </form>
 
 	   <!-- Remind Passowrd -->
@@ -42,7 +43,6 @@
 	}
 
 </style>
-
 
 <script>
 import { Group, Cell, XInput } from 'vux'
@@ -67,7 +67,6 @@ export default {
           alert('Form Submitted!');
           return;
         }
-
         alert('Correct them errors!');
       });
   		console.log(this.username)

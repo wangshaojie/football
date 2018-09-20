@@ -46,7 +46,6 @@
 
 <script>
 import { Group, Cell, XInput } from 'vux'
-
 export default {
   components: {
     Group,
@@ -63,24 +62,33 @@ export default {
   	validateBeforeSubmit(){
   		this.$validator.validateAll().then((result) => {
         if (result) {
-          console.log(result)
-          localStorage.token = new Date().getDate();
-          this.$router.push({
-            name : "/"
-          })
-          // eslint-disable-next-line
-          alert('Form Submitted!');
-          return;
+	        console.log(result)
+	        this.axios.post('/api/login', {
+		  		username : this.username,
+		  		password : this.password
+		  	})
+			.then(({data})=>{
+			    /*
+					此处模拟后台设置token
+			    */
+			    var data = data.data;
+			    localStorage.token = data.token;
+			    localStorage.loginUserBaseInfo = data;
+			    if(data.error === 0){
+			      this.userInfo = data;
+			    }else{
+			      this.userInfo = {};
+			    }
+			});
+	        this.$router.push({
+	            name : "/"
+	        })
+	        return;
         }
       });
   	}
   },
   mounted(){
-  	this.$nextTick(function(){
-  		this.$vux.toast.show({
-		    text: 'Loading'
-		  })
-  	})
   	
   }
 }

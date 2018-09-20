@@ -1,6 +1,9 @@
 <template>
   <div id="app">
-  	<x-header>This is the page title.</x-header>
+  	<x-header 
+    v-if="$route.path!='/login'"
+    :left-options="{showBack: $route.path!='/' ? true : false}"
+    >{{title}}</x-header>
     <router-view/>
   </div>
 </template>
@@ -16,7 +19,15 @@
 	  name: 'App',
 	  components:{
 	  	XHeader
-	  }
+	  },
+    data(){
+      return{
+        title : this.$route.name
+      }
+    },
+    mounted(){
+      
+    }
 	}
 </script>
 

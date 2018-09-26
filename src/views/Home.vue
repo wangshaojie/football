@@ -2,15 +2,46 @@
 	<div>
 		<swiper :list="demo01_list" v-model="demo01_index" 
 		auto loop
-		@on-index-change="demo01_onIndexChange"></swiper>
+		@on-index-change="demo01_onIndexChange">
+		</swiper>
+		<router-view></router-view>
+		<div>
+			<router-view class="view" v-on:changeTab="changeTab"></router-view>
+			<tabbar v-model="index">
+			      <tabbar-item>
+			        <img slot="icon" class="iconfont icon-shouye">
+			        <span slot="label">首页</span>
+			      </tabbar-item>
+			      <tabbar-item show-dot link="/plan">
+			        <img slot="icon" src="http://temp.im/879x200">
+			        <span slot="label">演出日历</span>
+			      </tabbar-item>
+			      <tabbar-item selected link="/component/demo">
+			        <img slot="icon" src="http://temp.im/879x200">
+			        <span slot="label">Explore</span>
+			      </tabbar-item>
+			      <tabbar-item badge="2">
+			        <img slot="icon" src="http://temp.im/879x200">
+			        <span slot="label">News</span>
+			      </tabbar-item>
+			  </tabbar>
+		</div>
 	</div>
 </template>
 
+<style type="text/css" lang="less">
+	.vux-swiper-desc{
+		height: auto!important;
+	}
+</style>
+
 <script>
-	import { Swiper } from 'vux'
+	import { Swiper, Tabbar, TabbarItem } from 'vux'
 	export default{
 		components: {
-	    	Swiper
+	    	Swiper,
+	    	Tabbar,
+      		TabbarItem
 	  	},
 	  	data(){
 	  		return {
@@ -40,6 +71,9 @@
 		    			_this.demo01_list = data;
 		    		}
 		    	})
+		    },
+		    changeTab(num){
+		       this.index = num;
 		    }
 	  	},
 	  	mounted(){

@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import axios from 'axios'
 import Login from '@/views/regsiter/Login'
 import Home from '@/views/Home'
+import Plan from '@/views/Plan'
 
 import axiosPlugin from "../server";
 Vue.use(axiosPlugin);
@@ -23,6 +24,11 @@ const router =  new Router({
       path: '/login',
       name: 'login',
       component: Login
+    },
+    {
+      path: '/plan',
+      name: 'plan',
+      component: Plan
     }
   ]
 });

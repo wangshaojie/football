@@ -1,10 +1,13 @@
 <template>
   <div id="app">
   	<x-header 
+    v-show="isHeader"
     v-if="$route.path!='/login'"
     :left-options="{showBack: $route.path!='/' ? true : false}"
     >{{title}}</x-header>
     <router-view/>
+
+
   </div>
 </template>
 
@@ -22,11 +25,14 @@
 	  },
     data(){
       return{
-        title : this.$route.name
+        title : this.$route.name,
+        isHeader : true
       }
     },
     mounted(){
-      
+      if(this.$route.path == '/'){
+        this.isHeader = false
+      }
     }
 	}
 </script>

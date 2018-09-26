@@ -89,6 +89,11 @@ var originalConfig =  module.exports = {
 
 const webpackConfig = originalConfig;
 
+//配置vux全局颜色
+let lessTheme = {
+  name:'less-theme',
+  path:'src/assets/styles/theme.less'
+}
 module.exports = vuxLoader.merge(webpackConfig, {
-  plugins: ['vux-ui']
+  plugins: ['vux-ui', lessTheme]
 })

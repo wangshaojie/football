@@ -18,6 +18,10 @@ axios.interceptors.request.use(
   config => {
     if(window.localStorage.token){
       config.headers.Authorization = `token ${window.localStorage.getItem("token")}`;
+    }else{
+      router.push({
+        path: "/login"
+      });
     }
     return config;
   },

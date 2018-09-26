@@ -42,6 +42,7 @@
 		color:@color;
 	}
 
+
 </style>
 
 <script>
@@ -60,6 +61,10 @@ export default {
   },
   methods:{
   	validateBeforeSubmit(){
+      var _this = this;
+      _this.$router.push({
+                path : "/"
+              })
   		this.$validator.validateAll().then((result) => {
         if (result) {
 	        console.log(result)
@@ -71,19 +76,18 @@ export default {
 			    /*
 					此处模拟后台设置token
 			    */
+         console.log(data)
 			    var data = data.data;
 			    localStorage.token = data.token;
 			    localStorage.loginUserBaseInfo = data;
 			    if(data.error === 0){
 			      this.userInfo = data;
+            
 			    }else{
 			      this.userInfo = {};
 			    }
 			});
-	        this.$router.push({
-	            name : "/"
-	        })
-	        return;
+	       
         }
       });
   	}

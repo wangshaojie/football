@@ -31,22 +31,22 @@ const router =  new Router({
 /*
   登陆权限
 */
-router.beforeEach((to, from, next) => {
-  //判断是否需要登陆权限
-  if(to.matched.some(res => res.meta.requireAuth)) {
-    //window.localStorage.setItem("loginUserBaseInfo", "wangsj00")
-    //localStorage.removeItem("loginUserBaseInfo");
-    if(!localStorage.token){
-      next({
-        path: '/login',
-        query : {redirect : to.fullpath} //将跳转的路由path作为参数，登录成功后跳转到该路由
-      })
-    }else{
-      next()
-    }
-  }else{
-    next()
-  }
-});
+// router.beforeEach((to, from, next) => {
+//   //判断是否需要登陆权限
+//   if(to.matched.some(res => res.meta.requireAuth)) {
+//     //window.localStorage.setItem("loginUserBaseInfo", "wangsj00")
+//     //localStorage.removeItem("loginUserBaseInfo");
+//     if(!localStorage.token){
+//       next({
+//         path: '/login',
+//         query : {redirect : to.fullpath} //将跳转的路由path作为参数，登录成功后跳转到该路由
+//       })
+//     }else{
+//       next()
+//     }
+//   }else{
+//     next()
+//   }
+// });
 
 export default router;

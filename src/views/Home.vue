@@ -14,7 +14,7 @@
 			      </tabbar-item>
 			      <tabbar-item show-dot link="/plan">
 			        <img slot="icon" src="http://temp.im/879x200">
-			        <span slot="label">演出日历</span>
+			        <span slot="label">票房排名</span>
 			      </tabbar-item>
 			      <tabbar-item selected link="/component/demo">
 			        <img slot="icon" src="http://temp.im/879x200">
@@ -24,7 +24,7 @@
 			        <img slot="icon" src="http://temp.im/879x200">
 			        <span slot="label">News</span>
 			      </tabbar-item>
-			  </tabbar>
+		  	</tabbar>
 		</div>
 	</div>
 </template>

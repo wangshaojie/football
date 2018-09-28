@@ -76,7 +76,7 @@ export default {
 			    /*
 					此处模拟后台设置token
 			    */
-         console.log(data)
+     			console.log(data)
 			    var data = data.data;
 			    localStorage.token = data.token;
 			    localStorage.loginUserBaseInfo = data;

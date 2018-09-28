@@ -46,7 +46,8 @@
 	  	data(){
 	  		return {
 	  			demo01_list:[],
-	  			demo01_index: 0
+	  			demo01_index: 0,
+	  			index:null
 	  		}
 	  	},
 	  	methods:{

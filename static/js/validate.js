@@ -6,7 +6,8 @@ import zh from 'vee-validate/dist/locale/zh_CN';//引入中文文件
 Validator.addLocale(zh);
 
 const config = {
-  locale: 'zh_CN'
+  locale: 'zh_CN',
+  errorBagName: 'vErrors'
 };
 
 Vue.use(VeeValidate,config);

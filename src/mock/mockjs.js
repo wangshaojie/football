@@ -65,18 +65,18 @@ const imglist = function (opt) {
 Mock.mock('/api/index/imglist', /post|get/i, imglist);
 
 
-/* 电影票房筛选*/
+/* 筛选条件*/
 const moviescreening  = function (opt) {
    console.log('opt', opt);
    let moviescreening = [{
    	key : 0,
-   	value : "上映时间"
+   	value : "距离优先"
    },{
    	key : 1,
-   	value : "总票房"
+   	value : "价格优先"
    },{
    	key : 2,
-   	value : "实时票房"
+   	value : "评分最高"
    }];
    
    return {

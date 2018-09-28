@@ -4,6 +4,7 @@ import axios from 'axios'
 import Login from '@/views/regsiter/Login'
 import Home from '@/views/Home'
 import Plan from '@/views/Plan'
+import Tree from '@/views/tree'
 
 import axiosPlugin from "../server";
 Vue.use(axiosPlugin);
@@ -29,6 +30,11 @@ const router =  new Router({
       path: '/plan',
       name: 'plan',
       component: Plan
+    },
+    {
+      path: '/tree',
+      name: 'tree',
+      component: Tree
     }
   ]
 });

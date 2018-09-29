@@ -193,10 +193,7 @@
 				}
 			},
 			cancel(){
-				this.begin=this.beginDate;
-				this.end=this.endDate;
-				
-				this.$emit('select')
+				this.$emit('select',this.begin,this.end)
 			},
 			//判断是否反转日期
 			isOpposite(end,begin){

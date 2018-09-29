@@ -48,65 +48,72 @@
 		        </div>
 		      </popup>
 		    </div>
-
 		    <!-- 筛选 -->
 		    <div v-transfer-dom>
 		      <popup v-model="screenIsShow" height="100%">
 		        <div class="popup1">
-			        <div class="row">
-			        	<br>
-					    <divider> {{ ('居室') }} </divider>
-					    <flexbox wrap="wrap">
-					      <flexbox-item :span="2.7" v-for="item in jushi" :key="item.id">
-					      	<div class="flex-demo flex-screen" @click="onClickJushi(item.id)" :class="{cur:jushiId==item.id}">{{item.text}}</div>
-					      </flexbox-item>
-					    </flexbox>
-			        </div>
-				    <div class="row row-price">
-				    	<br>
-					    <divider> {{ ('每晚价格') }} {{priceValue.value}} </divider>
-					    <vue-slider v-model="priceValue.value" v-bind="priceValue.options"></vue-slider>
-				    </div>
-				    <div class="row number-style">
-					    <group>
-					      <x-number :title="('人数')" v-model="pepleNum" button-style="round" :min="0" :max="5"></x-number>
-					    </group>
-				    </div>
-				    <div class="row number-style bed">
-					    <group>
-					      <x-number :title="('床数')" v-model="bedNum" button-style="round" :min="0" :max="5"></x-number>
-					    </group>
-				    </div>
-				    <div class="row">
-			        	<br>
-					    <divider> {{ ('房型') }} </divider>
-					    <flexbox wrap="wrap">
-					      <flexbox-item :span="2.7" v-for="item in houseTypeDate" :key="item.id">
-					      	<div class="flex-demo flex-screen" @click="onClickHouseType(item.id)" :class="{cur:houseTypeIds.indexOf(item.id) > -1}">{{item.text}}</div>
-					      </flexbox-item>
-					    </flexbox>
+			        <div class="wrap">
+			        	<div class="text-center text-bold header">
+			        		<span>筛选</span>
+			        		<x-icon type="ios-close-empty" size="40" class="close" @click="onClosePop"></x-icon>
+			        	</div>
+			        	<div class="row" style="margin-top: 16px;">
+				        	<br>
+						    <divider> {{ ('居室') }} </divider>
+						    <flexbox wrap="wrap">
+						      <flexbox-item :span="2.7" v-for="item in jushi" :key="item.id">
+						      	<div class="flex-demo flex-screen" @click="onClickJushi(item.id)" :class="{cur:jushiId==item.id}">{{item.text}}</div>
+						      </flexbox-item>
+						    </flexbox>
+				        </div>
+					    <div class="row row-price">
+					    	<br>
+						    <divider> {{ ('每晚价格') }} {{priceValue.value}} </divider>
+						    <vue-slider v-model="priceValue.value" v-bind="priceValue.options"></vue-slider>
+					    </div>
+					    <div class="row number-style">
+						    <group>
+						      <x-number :title="('人数')" v-model="pepleNum" button-style="round" :min="0" :max="5"></x-number>
+						    </group>
+					    </div>
+					    <div class="row number-style bed">
+						    <group>
+						      <x-number :title="('床数')" v-model="bedNum" button-style="round" :min="0" :max="5"></x-number>
+						    </group>
+					    </div>
+					    <div class="row">
+				        	<br>
+						    <divider> {{ ('房型') }} </divider>
+						    <flexbox wrap="wrap">
+						      <flexbox-item :span="2.7" v-for="item in houseTypeDate" :key="item.id">
+						      	<div class="flex-demo flex-screen" @click="onClickHouseType(item.id)" :class="{cur:houseTypeIds.indexOf(item.id) > -1}">{{item.text}}</div>
+						      </flexbox-item>
+						    </flexbox>
+				        </div>
+
+				        <div class="row device-style">
+				        	<br>
+						    <divider> {{ ('设施') }} </divider>
+						    <flexbox wrap="wrap">
+						      <flexbox-item :span="2.7" v-for="item in deviceData" :key="item.id">
+						      	<div class="flex-demo flex-screen" @click="onClickDevice(item.id)" :class="{cur:deviceIds.indexOf(item.id) > -1}"><i :class="item.icon"></i>{{item.text}}</div>
+						      </flexbox-item>
+						    </flexbox>
+				        </div>
 			        </div>
 
-			        <div class="row device-style">
-			        	<br>
-					    <divider> {{ ('设施') }} </divider>
-					    <flexbox wrap="wrap">
-					      <flexbox-item :span="2.7" v-for="item in deviceData" :key="item.id">
-					      	<div class="flex-demo flex-screen" @click="onClickDevice(item.id)" :class="{cur:deviceIds.indexOf(item.id) > -1}"><i :class="item.icon"></i>{{item.text}}</div>
-					      </flexbox-item>
-					    </flexbox>
-			        </div>
-
-
-			        <flexbox orient="vertical">
-				      <flexbox-item><div class="flex-demo">1</div></flexbox-item>
-				      <flexbox-item><div class="flex-demo">2</div></flexbox-item>
+			        <flexbox :gutter="0" class="btn-group">
+				      <flexbox-item :span="4"><x-button>重置</x-button></flexbox-item>
+				      <flexbox-item><x-button type="primary">确定</x-button></flexbox-item>
 				    </flexbox>
 
 		        </div>
 		      </popup>
 		    </div>
 			
+			<div class="container">
+				
+			</div>
 	    </div> 
 	</div>
 </template>
@@ -140,8 +147,34 @@
 	.popup1 {
 	  width:100%;
 	  height:100%;
-	  padding: 0 10px;
 	  overflow-y: auto;
+	  .wrap{
+	  	padding: 0 10px;
+	  	padding-bottom: 60px;
+	  	.close{
+	  		position: absolute;
+	  		right: 20px;
+	  	}
+	  	.header{
+	  		position: fixed;
+	  		top: 0;
+	  		line-height: 40px;
+		    height: 40px;
+		    background: #fff;
+		    z-index:999;
+		    left: 0;
+		    right: 0;
+	  	}
+	  }
+	  .weui-btn{
+			border-radius: 0px;
+		}
+		.weui-btn_primary{
+			background: #17BD88;
+			&:active{
+				background: #17BD88!important;
+			}
+		}
 	  .vux-flexbox-item{
 		background: #F8F8F8;
 	  }
@@ -203,13 +236,23 @@
 		}
 		
 	}
-
+	.btn-group{
+		position: fixed;
+		bottom:0;
+		.vux-flexbox-item{
+			margin-right: 0!important;
+			margin-bottom: 0;
+		}
+	}
+	.container{
+		background: #ccc;
+	}
 </style>
 
 <script>
 	import DatePicker from "../components/datePiker.vue";
 	import vueSlider from 'vue-slider-component';
-	import { Selector, Group, Sticky, Flexbox, FlexboxItem, Divider, Swiper, SwiperItem, Datetime, Popup, XSwitch, TransferDom,Cell, XNumber  } from 'vux'
+	import { Selector, Group, Sticky, Flexbox, FlexboxItem, Divider, Swiper, SwiperItem, Datetime, Popup, XSwitch, TransferDom,Cell, XNumber, XButton  } from 'vux'
 	export default {
 	  components: {
 	  	vueSlider,
@@ -226,7 +269,8 @@
     	XSwitch,
     	DatePicker,
     	Cell,
-    	XNumber
+    	XNumber,
+    	XButton
 	  },
 	  directives: {
 	    TransferDom
@@ -240,7 +284,7 @@
 	  		search: [],
 	  		movieList : [],
 	  		dateIsShow: false,  //时间控件显示隐藏
-	  		screenIsShow : false, //筛选控件
+	  		screenIsShow : false, //筛选控件显示隐藏
 	  		date: '2018-08-18',
 	  		disabled: typeof navigator !== 'undefined' && /iphone/i.test(navigator.userAgent) && /ucbrowser/i.test(navigator.userAgent),
 	  		calendar:{
@@ -302,6 +346,9 @@
 	  mounted(){
 	  	this.moviescreening();
 	  	this.getMovieList();
+	  	// console.log(this.calendar.begin)
+	  	// console.log(this.calendar.end)
+	  	this.calendar.select(this.calendar.begin,this.calendar.end)
 	  },
 	  methods:{
 	  	spaceChange () {
@@ -360,6 +407,10 @@
 	    	}
 	    	console.log(this.deviceIds)
 			
+	    },
+	    onClosePop () {
+	    	console.log(this)
+			this.screenIsShow = false;
 	    },
 	    onChangePrice (val) {
 	    	console.log('change', val)

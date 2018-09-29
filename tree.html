@@ -5,77 +5,19 @@
   <meta charset="UTF-8">
   
   <!-- first import Vue -->
-  <script src="https://unpkg.com/vue/dist/vue.js"></script>
   <!-- import JavaScript -->
-  <script src="https://cdn.jsdelivr.net/npm/liquor-tree/dist/liquor-tree.umd.js"></script>
 </head>
 <body>
-  <div id="app">
-    <div>
-      <tree
-      :data="treeData"
-      :options="treeOptions"
-      v-model="selected" 
-      ref="tree"
-    />
-    </div>
-    <div>选中的：{{selected}}</div>
-  </div>
-  <script>
-    new Vue({
-      el: '#app',
-      data: function() {
-        return {
-          selected : null,
-          treeData: getTreeData(),
-          treeOptions: {
-            checkbox: true,
-            propertyNames: {
-              text: 'text',
-              children: 'children'
-            }
-          }
-        }
-      }
-    })
-    
-    
-    function getTreeData() {
-      return [
-          {
-            text: 'JS: The Right Way',
+  <img onmouseover="bigImg(this)" onmouseout="normalImg(this)" border="0" src="http://placeholder.qiniudn.com/640x240/#cc0033" alt="Smiley">
 
-            // it makes node expanded
-            state: { expanded: true },
-            children: [
-              { text: 'Getting Started', state: { checked: true } },
-              { text: 'JavaScript Code Style', state: { selected: true } },
-              { text: 'The Good Parts', children: [
-                { text: 'OBJECT ORIENTED', state: { checked: true }  },
-                { text: 'ANONYMOUS FUNCTIONS', state: { checked: true }  },
-                { text: 'FUNCTIONS AS FIRST-CLASS OBJECTS', state: { checked: true }  },
-                { text: 'LOOSE TYPING', state: { checked: true }  }
-              ]},
-              { text: 'Patterns', children: [
-                { text: 'DESIGN PATTERNS', state: { expanded: true }, children: [
-                  { text: 'Creational Design Patterns', children: [
-                    { text: 'Factory' },
-                    { text: 'Prototype' },
-                    { text: 'Mixin' },
-                    { text: 'Singleton' }
-                  ]},
-                  { text: 'Structural Design Patterns'}
-                ]},
-                { text: 'MV* PATTERNS', cildren: [
-                  { text: 'MVC Pattern' },
-                  { text: 'MVP Pattern' },
-                  { text: 'MVVM Pattern' }
-                ]}
-              ]}
-            ]
-          }
-        ]
+  <script type="text/javascript">
+    function bigImg(x){
+      x.setAttribute("src", "http://temp.im/640x240/4CD964/fff")
     }
+    function normalImg(x){
+      x.setAttribute("src", "http://placeholder.qiniudn.com/640x240/#cc0033")
+    }
+
   </script>
 </body>
 </html>

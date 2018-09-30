@@ -85,3 +85,50 @@ const moviescreening  = function (opt) {
  }
 
 Mock.mock('/api/movie/moviescreening', /post|get/i, moviescreening);
+
+/*房源列表*/
+const houselist = function (opt) {
+   console.log('opt', opt);
+   let houselist = [];
+   for(let i = 0 ; i < 25; i++) {
+      let obj = {
+        url : Random.url(),
+        img: Random.dataImage('375x180', 'mock的图片'),
+        title : Random.sentence(3, 20),
+        grade : Random.natural(1, 5),
+        comments : Random.natural(1, 1000),
+        jushi : Random.natural(1, 5),
+        tag : Random.csentence(3, 5)
+      } 
+      houselist.push(obj)
+   }
+   return {
+      houselist
+   }
+ }
+
+//Mock.mock('/api/index/houselist', /post|get/i, houselist);
+
+Mock.mock(/.*api\/index\/houselist/, {
+    'success' : true,
+    'data|10' : [
+      {
+        'id|+1' : 1,
+        'canManage' : '@csentence(10)',
+        "mobile":"18310000184",
+        'startTime' : '@date("yyyy-MM-dd")',
+        'endTime' : '@date("yyyy-MM-dd")',
+        'createTime' : '@date("yyyy-MM-dd")',
+        'state|1-2' : 2,
+        "workRank" : "@csentence(5)",
+        "name" : "@csentence(2)",
+        "regNum|1-100" : 100,
+        "img" : Random.dataImage('375x180', 'mock的图片'),
+        "date" : "@time('HH:mm:ss')"
+      }
+    ],
+    'page':{
+      'pageSize':10,
+      'totalCount':20
+    }
+  });

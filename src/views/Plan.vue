@@ -112,13 +112,24 @@
 		    </div>
 			
 			<div class="container">
-				
+				<!--mescroll滚动区域的基本结构-->
+			    <mescroll-vue ref="mescroll" :down="mescrollDown" :up="mescrollUp" @init="mescrollInit">
+			      <div v-for="item in dataList">
+			      	<swiper :list="dataList" v-model="demo01_index" loop @on-index-change="demo01_onIndexChange"></swiper>
+			      </div>
+			    </mescroll-vue>
 			</div>
 	    </div> 
 	</div>
 </template>
 
 <style type="text/css" lang="less">
+	.mescroll {
+	    position: fixed;
+	    top: 70px;
+	    bottom: 0;
+	    height: auto;
+	  }
 	.flex-demo {
 	  text-align: center;
 	  font-size: 12px;
@@ -252,6 +263,7 @@
 <script>
 	import DatePicker from "../components/datePiker.vue";
 	import vueSlider from 'vue-slider-component';
+	import MescrollVue from 'mescroll.js/mescroll.vue';
 	import { Selector, Group, Sticky, Flexbox, FlexboxItem, Divider, Swiper, SwiperItem, Datetime, Popup, XSwitch, TransferDom,Cell, XNumber, XButton  } from 'vux'
 	export default {
 	  components: {
@@ -270,13 +282,15 @@
     	DatePicker,
     	Cell,
     	XNumber,
-    	XButton
+    	XButton,
+    	MescrollVue
 	  },
 	  directives: {
 	    TransferDom
 	  },
 	  data(){
 	  	return {
+  			demo01_index: 0,
 	  		klass : true,
 	  		value2: 1,
 	  		value3: 1,
@@ -340,12 +354,30 @@
 				}
 			},
 			pepleNum: 0, //人数
-			bedNum: 0 //床数
+			bedNum: 0, //床数
+			mescroll: null,
+			mescrollDown:{},
+			mescrollUp:{
+				callback: this.upCallback,
+				//isLock:true, //上啦刷新
+			},
+			dataList: [] // 列表数据
 	  	}
 	  },
+
+	  beforeRouteEnter (to, from, next) { // 如果没有配置回到顶部按钮或isBounce,则beforeRouteEnter不用写
+	    next(vm => {
+	      vm.$refs.mescroll.beforeRouteEnter() // 进入路由时,滚动到原来的列表位置,恢复回到顶部按钮和isBounce的配置
+	    })
+	  },
+	  beforeRouteLeave (to, from, next) { // 如果没有配置回到顶部按钮或isBounce,则beforeRouteLeave不用写
+	    this.$refs.mescroll.beforeRouteLeave() // 退出路由时,记录列表滚动的位置,隐藏回到顶部按钮和isBounce的配置
+	    next()
+	  },
+
 	  mounted(){
 	  	this.moviescreening();
-	  	this.getMovieList();
+	  	//this.getHouseList();
 	  	// console.log(this.calendar.begin)
 	  	// console.log(this.calendar.end)
 	  	this.calendar.select(this.calendar.begin,this.calendar.end)
@@ -427,9 +459,40 @@
 			   console.log(error);
 		  	});
 	    },
-	    getMovieList () {
-	    	console.log(this)
-	    	this.axios.get('',{withCredentials:true})
+	    //mescroll组件初始化的回调,可获取到mescroll对象
+	    mescrollInit (mescroll) {
+	      this.mescroll = mescroll
+	    },
+	    upCallback (page, mescroll) {
+			      // 联网请求
+	      this.axios.get('/api/index/houselist', {
+	        params: {
+	          num: page.num, // 页码
+	          size: page.pageSize // 每页长度
+	        }
+	      }).then((response) => {
+	      	//console.log(response.data.data)
+	        // 请求的列表数据
+	        let arr = response.data.data;
+	        // 如果是第一页需手动制空列表
+	        if (page.num === 1) this.dataList = []
+	        // 把请求到的数据添加到列表
+	        this.dataList = this.dataList.concat(arr)
+	        // 数据渲染成功后,隐藏下拉刷新的状态
+	        this.$nextTick(() => {
+	          mescroll.endSuccess(arr.length)
+	        })
+	      }).catch((e) => {
+	        // 联网失败的回调,隐藏下拉刷新和上拉加载的状态;
+	        mescroll.endErr()
+	      })
+	    },
+	    //轮播图
+	    demo01_onIndexChange (index) {
+	      this.demo01_index = index
+	    },
+	    getHouseList () {
+	    	this.axios.get('/api/index/houselist',{withCredentials:true})
 	    	.then(function(res){
 	    		console.log(res)
 	    	})

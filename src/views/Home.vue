@@ -10,7 +10,7 @@
 			<tabbar v-model="index">
 			      <tabbar-item>
 			        <img slot="icon" class="iconfont icon-shouye">
-			        <span slot="label">首页</span>
+			        <span slot="label">首页123</span>
 			      </tabbar-item>
 			      <tabbar-item show-dot link="/plan">
 			        <img slot="icon" src="http://temp.im/879x200">

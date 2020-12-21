@@ -31,14 +31,9 @@
     },
     mounted(){
       if(this.$route.path == '/'){
-        this.isHeader = false
+        this.isHeader = true
       }
     }
 	}
 </script>
 
-<style>
-.underlineHover{
-    color:@color;
-  }
-</style>

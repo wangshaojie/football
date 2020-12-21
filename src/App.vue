@@ -29,11 +29,6 @@
         isHeader : true
       }
     },
-    mounted(){
-      if(this.$route.path == '/'){
-        this.isHeader = false
-      }
-    }
 	}
 </script>
 

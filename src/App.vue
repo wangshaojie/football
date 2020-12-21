@@ -31,7 +31,7 @@
     },
     mounted(){
       if(this.$route.path == '/'){
-        this.isHeader = true
+        this.isHeader = false
       }
     }
 	}

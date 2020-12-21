@@ -26,7 +26,7 @@
     data(){
       return{
         title : this.$route.name,
-        isHeader : true
+        isHeader : false
       }
     },
 	}
